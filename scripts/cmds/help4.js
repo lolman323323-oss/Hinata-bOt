@@ -2,10 +2,10 @@ const fs = require("fs");
 
 module.exports = {
   config: {
-    name: "help",
-    aliases: ["menu"],
+    name: "help4",
+    aliases: ["menu4"],
     version: "2.0",
-    author: "Helal + GPT-5",
+    author: "Helal",
     role: 0,
     shortDescription: "Show full command list with animation + fancy font",
   },

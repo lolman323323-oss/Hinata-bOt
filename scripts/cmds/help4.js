@@ -8,20 +8,24 @@ module.exports = {
     author: "Helal",
     role: 0,
     shortDescription: "Show full command list with animation + fancy font",
+    category: "system"
   },
 
   onStart: async function ({ api, event }) {
     const commands = global.GoatBot?.commands || new Map();
+
+    // Send first loading message
     const sent = await api.sendMessage("⏳ Loading help menu...", event.threadID);
 
     // Animation frames
     const frames = [
       "[░░░░░░░░░░] ⚪ 0%",
-      "[████░░░░░░] 🟠 40%",
-      "[████████░░] 🔴 80%",
+      "[██░░░░░░░░] 🟠 40%",
+      "[██████░░░░] 🔴 80%",
       "[██████████] 🟢 100%"
     ];
 
+    // Play animation
     for (const frame of frames) {
       await new Promise(r => setTimeout(r, 500));
       await api.editMessage(frame, sent.messageID);
@@ -29,23 +33,26 @@ module.exports = {
 
     await new Promise(r => setTimeout(r, 500));
 
-    // Category grouping
+    // Sort commands by category
     const categories = {};
     for (const [name, cmd] of commands.entries()) {
-      const cat = cmd.config?.category || "🎮 OTHER";
+      const cat = cmd.config?.category
+        ? cmd.config.category.toUpperCase()
+        : "📁 OTHER";
+
       if (!categories[cat]) categories[cat] = [];
       categories[cat].push(name);
     }
 
+    // Build menu text
     let menu =
-      "🛡️ 𝙷𝙴𝙻𝙿 𝙼𝙴𝙽𝚄\n" +
-      "━━━━━━━━━━━━━━━━━━━━━━\n";
+      "🛡️ 𝙷𝙴𝙻𝙿 𝙼𝙴𝙽𝚄\n━━━━━━━━━━━━━━━━━━━━━━\n";
 
-    // Generate menu
+    // Create category sections
     for (const [cat, cmds] of Object.entries(categories)) {
-      menu += `📦 ${cat}\n`; // category fancy না করা ভালো
-      const pairs = chunkArray(cmds, 2);
+      menu += `📦 ${convertFont(cat)}\n`;
 
+      const pairs = chunkArray(cmds, 2);
       for (const row of pairs) {
         const c1 = row[0] ? `🔹 ${convertFont(row[0])}` : "";
         const c2 = row[1] ? `   🔹 ${convertFont(row[1])}` : "";
@@ -55,11 +62,12 @@ module.exports = {
       menu += "\n";
     }
 
+    // Footer
     menu +=
       "━━━━━━━━━━━━━━━━━━━━━━\n" +
-      `💡 Use: /help <command>\n` +
-      `📦 Total Commands: ${commands.size}\n` +
-      `👑 Owner: Helal\n` +
+      `📦 ᴛᴏᴛᴀʟ ᴄᴏᴍᴍᴀɴᴅꜱ: ${commands.size}\n` +
+      "💡 ᴜꜱᴇ: /help <command>\n" +
+      "👑 ᴏᴡɴᴇʀ: ʜᴇʟᴀʟ\n" +
       "━━━━━━━━━━━━━━━━━━━━━━";
 
     await api.editMessage(menu, sent.messageID);
@@ -79,6 +87,7 @@ function chunkArray(arr, size) {
 function convertFont(text) {
   const normal = "abcdefghijklmnopqrstuvwxyz";
   const fancy = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀꜱᴛᴜᴠᴡxʏᴢ";
+
   return text
     .split("")
     .map(ch => {

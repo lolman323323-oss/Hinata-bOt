@@ -7,7 +7,7 @@ module.exports = {
     version: "5.0",
     author: "Helal",
     role: 0,
-    category: "utility",
+    category: "web",
     shortDescription: "Fetch website source and auto upload to multiple paste servers"
   },
 

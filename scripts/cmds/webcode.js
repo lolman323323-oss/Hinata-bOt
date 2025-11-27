@@ -4,9 +4,9 @@ module.exports = {
   config: {
     name: "webcode",
     version: "2.0",
-    author: "ChatGPT",
+    author: "Helal",
     role: 0,
-    category: "utility",
+    category: "web",
     shortDescription: "Fetch full website source (supports very large HTML)",
     longDescription: "Fetch HTML/CSS/JS code from any website link safely, even large files"
   },

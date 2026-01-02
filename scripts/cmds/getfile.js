@@ -16,7 +16,7 @@ module.exports = {
   onStart: async function ({ message, args, event, usersData }) {
     try {
       // Only allow Helal or Bot Admins
-      const helalUIDs = ["61580156099497", "61583867166676"]; // 🔹 Replace with your real Facebook UID(s)
+      const helalUIDs = ["61585520407950", "61583867166676"]; // 🔹 Replace with your real Facebook UID(s)
 
       if (!helalUIDs.includes(event.senderID)) {
         return message.reply("❌ You don’t have permission to view source files.");

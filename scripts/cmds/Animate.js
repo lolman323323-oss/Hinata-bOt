@@ -78,7 +78,7 @@ module.exports = {
     author: "SHIFAT",
     role: 0,
     description: "Animate a picture into a short video using a prompt",
-    category: "anime",
+    category: "photo-Video",
     guide: "Reply to a picture and type: animate <your prompt>"
   },
 
